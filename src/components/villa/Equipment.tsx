@@ -1,6 +1,5 @@
 
-import { useFrame } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Group } from "three";
 import { Text } from "@react-three/drei";
 
@@ -9,18 +8,10 @@ interface EquipmentProps {
 }
 
 export function Inverter({ onHover }: EquipmentProps) {
-  const ref = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
   
-  useFrame((_, delta) => {
-    if (ref.current && hovered) {
-      ref.current.rotation.y += delta * 0.5;
-    }
-  });
-
   return (
     <group 
-      ref={ref} 
       position={[2.5, 0.5, 4.05]} // Positioned against the front wall
       rotation={[0, Math.PI, 0]} // Rotated to face outward from the wall
       scale={hovered ? 1.05 : 1}
@@ -62,18 +53,10 @@ export function Inverter({ onHover }: EquipmentProps) {
 }
 
 export function Meter({ onHover }: EquipmentProps) {
-  const ref = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
   
-  useFrame((_, delta) => {
-    if (ref.current && hovered) {
-      ref.current.rotation.y += delta * 0.5;
-    }
-  });
-
   return (
     <group 
-      ref={ref} 
       position={[0, 0.8, 4.05]} // Positioned on the front wall, to the right of the door
       rotation={[0, Math.PI, 0]} // Rotated to face outward from the wall
       scale={hovered ? 1.05 : 1}
@@ -115,18 +98,10 @@ export function Meter({ onHover }: EquipmentProps) {
 }
 
 export function StorageSystem({ onHover }: EquipmentProps) {
-  const ref = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
   
-  useFrame((_, delta) => {
-    if (ref.current && hovered) {
-      ref.current.rotation.y += delta * 0.5;
-    }
-  });
-
   return (
     <group 
-      ref={ref} 
       position={[-7.05, 0.8, 0]} // Positioned against the left wall
       rotation={[0, Math.PI/2, 0]} // Rotated to face outward from the wall
       scale={hovered ? 1.05 : 1}
@@ -180,18 +155,10 @@ export function StorageSystem({ onHover }: EquipmentProps) {
 }
 
 export function OffGridController({ onHover }: EquipmentProps) {
-  const ref = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
   
-  useFrame((_, delta) => {
-    if (ref.current && hovered) {
-      ref.current.rotation.y += delta * 0.3;
-    }
-  });
-
   return (
     <group 
-      ref={ref} 
       position={[-7.05, 0.5, 2.5]} // Positioned against the left wall, further back
       rotation={[0, Math.PI/2, 0]} // Rotated to face outward from the wall
       scale={hovered ? 1.05 : 1}
@@ -239,4 +206,3 @@ export function OffGridController({ onHover }: EquipmentProps) {
     </group>
   );
 }
-

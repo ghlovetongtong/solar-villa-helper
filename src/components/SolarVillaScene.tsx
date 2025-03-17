@@ -1,8 +1,8 @@
+
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, PerspectiveCamera, Html, Sky, Cloud, useHelper } from "@react-three/drei";
 import Villa from "./villa/Villa";
-import { Inverter, Meter, StorageSystem, OffGridController } from "./villa/Equipment";
 import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
 import { DirectionalLightHelper, HemisphereLightHelper } from "three";
@@ -145,10 +145,6 @@ export function SolarVillaScene() {
           />
           
           <Villa onHover={setActiveTooltip} />
-          <Inverter onHover={setActiveTooltip} />
-          <Meter onHover={setActiveTooltip} />
-          <StorageSystem onHover={setActiveTooltip} />
-          <OffGridController onHover={setActiveTooltip} />
           
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
