@@ -191,9 +191,9 @@ export function SolarVillaScene() {
           
           <Sky distance={450000} sunPosition={[10, 8, 5]} inclination={0.5} azimuth={0.25} />
           
-          <Cloud position={[-10, 15, -10]} args={[3, 2]} opacity={0.8} speed={0.4} />
-          <Cloud position={[10, 10, -10]} args={[4, 2]} opacity={0.7} speed={0.2} />
-          <Cloud position={[5, 12, 10]} args={[3.5, 1.8]} opacity={0.75} speed={0.3} />
+          <Cloud position={[-10, 15, -10]} opacity={0.8} speed={0.4} />
+          <Cloud position={[10, 10, -10]} opacity={0.7} speed={0.2} />
+          <Cloud position={[5, 12, 10]} opacity={0.75} speed={0.3} />
           
           <Environment preset="sunset" />
         </Suspense>
