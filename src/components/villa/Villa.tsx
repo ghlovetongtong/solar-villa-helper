@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group } from "three";
 import { Inverter, Meter, StorageSystem, OffGridController } from "./Equipment";
+import SolarPanels from "./SolarPanels";
 
 export default function Villa({ onHover }: { onHover: (info: string | null) => void }) {
   const group = useRef<Group>(null);
@@ -116,6 +117,9 @@ export default function Villa({ onHover }: { onHover: (info: string | null) => v
         <boxGeometry args={[0.6, 1.2, 0.6]} />
         <meshStandardMaterial color="#8E9196" roughness={0.8} />
       </mesh>
+      
+      {/* Solar panels integrated with the villa */}
+      <SolarPanels onHover={onHover} />
       
       {/* Solar equipment integrated with the villa */}
       <Inverter onHover={onHover} />

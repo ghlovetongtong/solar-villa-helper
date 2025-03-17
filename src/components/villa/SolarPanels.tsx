@@ -1,28 +1,13 @@
 
 import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
-import { Group, DoubleSide } from "three";
+import { Group } from "three";
 import { Text } from "@react-three/drei";
 
 export default function SolarPanels({ onHover }: { onHover: (info: string | null) => void }) {
   const group = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
   
-  // Subtle animation for solar panels
-  useFrame((_, delta) => {
-    if (group.current && hovered) {
-      group.current.children.forEach((child) => {
-        if (child.type === "Mesh") {
-          // @ts-ignore
-          if (child.material.emissive) {
-            // @ts-ignore
-            child.material.emissive.set(hovered ? "#104060" : "#000000");
-          }
-        }
-      });
-    }
-  });
-
   // Generate random efficiency percentages for the panels
   const efficiencies = [75, 80, 82, 85, 90, 92, 88, 85, 80, 78, 90, 82];
 
@@ -38,8 +23,8 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         onHover(null);
       }}
     >
-      {/* Left roof solar panels */}
-      <group position={[-3, 4, 0]} rotation={[0.4, 0, 0]}>
+      {/* Left roof solar panels - flat on the roof */}
+      <group position={[-3, 3.2, 0]}>
         {Array(3).fill(0).map((_, row) => 
           Array(4).fill(0).map((_, col) => {
             const panelIndex = row * 4 + col;
@@ -48,18 +33,19 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
             return (
               <group key={`left-${row}-${col}`} position={[(col - 1.5) * 1.25, 0, (row - 1) * 1.25]}>
                 <mesh castShadow>
-                  <boxGeometry args={[1.2, 0.1, 1.2]} />
+                  <boxGeometry args={[1.2, 0.06, 1.2]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
                     roughness={0.2}
-                    emissive="#000033"
+                    emissive={hovered ? "#104060" : "#000033"}
+                    emissiveIntensity={hovered ? 0.5 : 0.2}
                   />
                 </mesh>
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.06, 0]}
+                  position={[0, 0.04, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
                   fontSize={0.15}
                   color="#3CEFA3"
@@ -75,28 +61,29 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         )}
       </group>
       
-      {/* Right roof solar panels - on pitched section */}
-      <group position={[0, 4.8, 0]} rotation={[0.4, 0, 0]}>
+      {/* Middle section solar panels - flat on the roof */}
+      <group position={[0, 4.2, 0]}>
         {Array(2).fill(0).map((_, row) => 
           Array(2).fill(0).map((_, col) => {
             const panelIndex = row * 2 + col + 6;
             const efficiency = efficiencies[panelIndex];
             
             return (
-              <group key={`right-${row}-${col}`} position={[(col - 0.5) * 1.25, 0, (row - 0.5) * 1.25]}>
+              <group key={`middle-${row}-${col}`} position={[(col - 0.5) * 1.25, 0, (row - 0.5) * 1.25]}>
                 <mesh castShadow>
-                  <boxGeometry args={[1.2, 0.1, 1.2]} />
+                  <boxGeometry args={[1.2, 0.06, 1.2]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
                     roughness={0.2}
-                    emissive="#000033"
+                    emissive={hovered ? "#104060" : "#000033"}
+                    emissiveIntensity={hovered ? 0.5 : 0.2}
                   />
                 </mesh>
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.06, 0]}
+                  position={[0, 0.04, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
                   fontSize={0.15}
                   color="#3CEFA3"
@@ -112,8 +99,8 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         )}
       </group>
       
-      {/* Flat roof solar panels */}
-      <group position={[5, 2.11, 1]} rotation={[0, 0, 0]}>
+      {/* Flat roof solar panels - on garage */}
+      <group position={[5, 2.11, 1]}>
         {Array(2).fill(0).map((_, row) => 
           Array(2).fill(0).map((_, col) => {
             const panelIndex = row * 2 + col + 10;
@@ -127,7 +114,8 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
                     color="#112233" 
                     metalness={0.8}
                     roughness={0.2}
-                    emissive="#000033"
+                    emissive={hovered ? "#104060" : "#000033"}
+                    emissiveIntensity={hovered ? 0.5 : 0.2}
                   />
                 </mesh>
                 
