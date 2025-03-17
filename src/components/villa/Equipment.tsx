@@ -21,7 +21,8 @@ export function Inverter({ onHover }: EquipmentProps) {
   return (
     <group 
       ref={ref} 
-      position={[1.5, 0.5, 3.03]} 
+      position={[2.5, 0.5, 4.05]} // Positioned against the front wall
+      rotation={[0, Math.PI, 0]} // Rotated to face outward from the wall
       scale={hovered ? 1.05 : 1}
       onPointerOver={() => {
         setHovered(true);
@@ -53,7 +54,7 @@ export function Inverter({ onHover }: EquipmentProps) {
       
       {/* Power line */}
       <mesh position={[0, -0.5, 0.1]} rotation={[Math.PI/2, 0, 0]}>
-        <cylinderGeometry args={[0.02, 0.02, 2, 8]} />
+        <cylinderGeometry args={[0.02, 0.02, 1, 8]} />
         <meshStandardMaterial color="#444444" />
       </mesh>
     </group>
@@ -73,7 +74,8 @@ export function Meter({ onHover }: EquipmentProps) {
   return (
     <group 
       ref={ref} 
-      position={[2.5, 0.8, 3.03]} 
+      position={[0, 0.8, 4.05]} // Positioned on the front wall, to the right of the door
+      rotation={[0, Math.PI, 0]} // Rotated to face outward from the wall
       scale={hovered ? 1.05 : 1}
       onPointerOver={() => {
         setHovered(true);
@@ -125,7 +127,8 @@ export function StorageSystem({ onHover }: EquipmentProps) {
   return (
     <group 
       ref={ref} 
-      position={[-1, 0.8, 3.03]} 
+      position={[-7.05, 0.8, 0]} // Positioned against the left wall
+      rotation={[0, Math.PI/2, 0]} // Rotated to face outward from the wall
       scale={hovered ? 1.05 : 1}
       onPointerOver={() => {
         setHovered(true);
@@ -189,7 +192,8 @@ export function OffGridController({ onHover }: EquipmentProps) {
   return (
     <group 
       ref={ref} 
-      position={[3.5, 0.5, 3.03]} 
+      position={[-7.05, 0.5, 2.5]} // Positioned against the left wall, further back
+      rotation={[0, Math.PI/2, 0]} // Rotated to face outward from the wall
       scale={hovered ? 1.05 : 1}
       onPointerOver={() => {
         setHovered(true);
@@ -235,3 +239,4 @@ export function OffGridController({ onHover }: EquipmentProps) {
     </group>
   );
 }
+
