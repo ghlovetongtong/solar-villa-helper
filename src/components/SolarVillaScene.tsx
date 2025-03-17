@@ -1,9 +1,7 @@
-
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, PerspectiveCamera, Html, Sky, Cloud, useHelper } from "@react-three/drei";
 import Villa from "./villa/Villa";
-import SolarPanels from "./villa/SolarPanels";
 import { Inverter, Meter, StorageSystem, OffGridController } from "./villa/Equipment";
 import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
@@ -94,9 +92,9 @@ export function SolarVillaScene() {
             transition={{ delay: 0.3, duration: 0.5 }}
             className="bg-white/90 backdrop-blur-md rounded-lg max-w-lg p-6 mx-4"
           >
-            <h2 className="text-2xl font-bold mb-3 text-gray-900">Interactive Solar Villa</h2>
+            <h2 className="text-2xl font-bold mb-3 text-gray-900">Interactive Villa</h2>
             <p className="text-gray-700 mb-4">
-              Explore our 3D model of a solar-powered villa. Hover over components to learn more. Click and drag to rotate, scroll to zoom.
+              Explore our 3D model of a villa. Hover over components to learn more. Click and drag to rotate, scroll to zoom.
             </p>
             <div className="flex justify-end">
               <button 
@@ -139,7 +137,6 @@ export function SolarVillaScene() {
             position={[10, 10, 5]} 
             intensity={1.5} 
             castShadow 
-            shadow-mapSize={1024}
             shadow-camera-far={50}
             shadow-camera-left={-10}
             shadow-camera-right={10}
@@ -148,7 +145,6 @@ export function SolarVillaScene() {
           />
           
           <Villa onHover={setActiveTooltip} />
-          <SolarPanels onHover={setActiveTooltip} />
           <Inverter onHover={setActiveTooltip} />
           <Meter onHover={setActiveTooltip} />
           <StorageSystem onHover={setActiveTooltip} />
