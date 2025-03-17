@@ -13,7 +13,7 @@ export function Inverter({ onHover }: EquipmentProps) {
   return (
     <group 
       position={[2.5, 0.5, 4.05]} // Positioned against the front wall
-      rotation={[0, Math.PI, 0]} // Rotated to face outward from the wall
+      rotation={[0, 0, 0]} // Rotated 180 degrees to face the opposite direction
       scale={hovered ? 1.05 : 1}
       onPointerOver={() => {
         setHovered(true);
@@ -58,7 +58,7 @@ export function Meter({ onHover }: EquipmentProps) {
   return (
     <group 
       position={[0, 0.8, 4.05]} // Positioned on the front wall, to the right of the door
-      rotation={[0, Math.PI, 0]} // Rotated to face outward from the wall
+      rotation={[0, 0, 0]} // Rotated 180 degrees to face the opposite direction
       scale={hovered ? 1.05 : 1}
       onPointerOver={() => {
         setHovered(true);
@@ -103,7 +103,7 @@ export function StorageSystem({ onHover }: EquipmentProps) {
   return (
     <group 
       position={[-7.05, 0.8, 0]} // Positioned against the left wall
-      rotation={[0, Math.PI/2, 0]} // Rotated to face outward from the wall
+      rotation={[0, -Math.PI/2, 0]} // Rotated 180 degrees from the original rotation
       scale={hovered ? 1.05 : 1}
       onPointerOver={() => {
         setHovered(true);
@@ -160,7 +160,7 @@ export function OffGridController({ onHover }: EquipmentProps) {
   return (
     <group 
       position={[-7.05, 0.5, 2.5]} // Positioned against the left wall, further back
-      rotation={[0, Math.PI/2, 0]} // Rotated to face outward from the wall
+      rotation={[0, -Math.PI/2, 0]} // Rotated 180 degrees from the original rotation
       scale={hovered ? 1.05 : 1}
       onPointerOver={() => {
         setHovered(true);
