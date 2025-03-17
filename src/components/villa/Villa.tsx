@@ -1,3 +1,4 @@
+
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group } from "three";
@@ -52,17 +53,22 @@ export default function Villa({ onHover }: { onHover: (info: string | null) => v
         <meshStandardMaterial color="#f1f0fb" roughness={0.4} metalness={0.05} />
       </mesh>
       
-      {/* Main Building Roof - Left part - NOW FLAT */}
+      {/* Main Building Roof - Left part - FLAT WITH SOLAR PANELS */}
       <FlatRoof position={[-3, 3.05, 0]} width={8.2} depth={8.2} />
+      <SolarPanelsArray position={[-3, 3.16, 0]} width={7.8} depth={7.8} rows={4} columns={4} onHover={onHover} />
       
-      {/* Middle Section Roof - NOW FLAT */}
+      {/* Middle Section Roof - FLAT WITH SOLAR PANELS */}
       <FlatRoof position={[0, 4.05, 0]} width={3.2} depth={6.2} />
+      <SolarPanelsArray position={[0, 4.16, 0]} width={2.8} depth={5.8} rows={2} columns={3} onHover={onHover} />
       
       {/* Flat roof for garage with balcony/terrace */}
       <mesh position={[5, 2.05, 1]} castShadow>
         <boxGeometry args={[6.2, 0.1, 5.2]} />
         <meshStandardMaterial color="#d4d4d4" roughness={0.5} metalness={0.1} />
       </mesh>
+      
+      {/* Solar panels on garage roof */}
+      <SolarPanelsArray position={[5, 2.16, 1]} width={5.8} depth={3.6} rows={3} columns={3} onHover={onHover} />
       
       {/* Terrace railing */}
       <Railing position={[5, 2.3, -1.1]} width={6} />
@@ -138,6 +144,96 @@ function FlatRoof({ position, width, depth }: {
       <boxGeometry args={[width, 0.2, depth]} />
       <meshStandardMaterial color={roofColor} roughness={0.7} metalness={0.1} />
     </mesh>
+  );
+}
+
+function SolarPanel({ position, onHover }: {
+  position: [number, number, number],
+  onHover: (info: string | null) => void
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <group 
+      position={position}
+      onPointerOver={() => {
+        setIsHovered(true);
+        onHover("Solar panel: Converts sunlight into electricity");
+      }}
+      onPointerOut={() => {
+        setIsHovered(false);
+        onHover(null);
+      }}
+    >
+      {/* Panel frame */}
+      <mesh castShadow>
+        <boxGeometry args={[1.8, 0.05, 0.9]} />
+        <meshStandardMaterial color="#222222" roughness={0.4} metalness={0.6} />
+      </mesh>
+      
+      {/* Panel cells */}
+      <mesh position={[0, 0.03, 0]} castShadow>
+        <boxGeometry args={[1.7, 0.02, 0.8]} />
+        <meshStandardMaterial 
+          color={isHovered ? "#1e40af" : "#0c4a6e"} 
+          roughness={0.1} 
+          metalness={0.8}
+          envMapIntensity={1.5}
+        />
+      </mesh>
+      
+      {/* Grid lines - horizontal */}
+      {Array(4).fill(0).map((_, i) => (
+        <mesh key={`h-${i}`} position={[0, 0.04, -0.3 + i * 0.2]}>
+          <boxGeometry args={[1.7, 0.01, 0.01]} />
+          <meshStandardMaterial color="#000000" />
+        </mesh>
+      ))}
+      
+      {/* Grid lines - vertical */}
+      {Array(6).fill(0).map((_, i) => (
+        <mesh key={`v-${i}`} position={[-0.7 + i * 0.28, 0.04, 0]}>
+          <boxGeometry args={[0.01, 0.01, 0.8]} />
+          <meshStandardMaterial color="#000000" />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function SolarPanelsArray({ position, width, depth, rows, columns, onHover }: {
+  position: [number, number, number],
+  width: number,
+  depth: number,
+  rows: number,
+  columns: number,
+  onHover: (info: string | null) => void
+}) {
+  const panelWidth = 1.8;
+  const panelDepth = 0.9;
+  const padding = 0.1;
+  
+  const startX = -width / 2 + panelWidth / 2 + padding;
+  const startZ = -depth / 2 + panelDepth / 2 + padding;
+  const stepX = (width - padding * 2) / (columns || 1);
+  const stepZ = (depth - padding * 2) / (rows || 1);
+  
+  return (
+    <group position={position}>
+      {Array(rows).fill(0).map((_, rowIdx) => 
+        Array(columns).fill(0).map((_, colIdx) => (
+          <SolarPanel 
+            key={`panel-${rowIdx}-${colIdx}`}
+            position={[
+              startX + colIdx * (stepX < panelWidth + padding ? panelWidth + padding : stepX), 
+              0, 
+              startZ + rowIdx * (stepZ < panelDepth + padding ? panelDepth + padding : stepZ)
+            ]}
+            onHover={onHover}
+          />
+        ))
+      )}
+    </group>
   );
 }
 
