@@ -51,9 +51,11 @@ export default function Villa({ onHover }: { onHover: (info: string | null) => v
         <meshStandardMaterial color="#f1f0fb" roughness={0.4} metalness={0.05} />
       </mesh>
       
-      {/* 优化的屋顶 - 使用实体模型代替之前的镂空结构 */}
-      <ImprovedRoof position={[-3, 3.05, 0]} width={8.4} height={1.6} depth={8.4} />
-      <ImprovedRoof position={[0, 4.05, 0]} width={3.4} height={1.2} depth={6.4} />
+      {/* Main Building Pitched Roof - Left part */}
+      <PitchedRoof position={[-3, 3.1, 0]} width={8.4} depth={8.4} height={2.0} />
+      
+      {/* Middle Section Pitched Roof */}
+      <PitchedRoof position={[0, 4.1, 0]} width={3.4} depth={6.4} height={1.6} />
       
       {/* Flat roof for garage with balcony/terrace */}
       <mesh position={[5, 2.05, 1]} castShadow>
@@ -117,50 +119,46 @@ export default function Villa({ onHover }: { onHover: (info: string | null) => v
   );
 }
 
-function ImprovedRoof({ position, width, height, depth }: { 
+function PitchedRoof({ position, width, depth, height }: { 
   position: [number, number, number], 
   width: number, 
-  height: number, 
-  depth: number 
+  depth: number,
+  height: number
 }) {
+  const roofColor = "#403E43"; // Dark gray roof color
+  const roofRoughness = 0.7;
+  const roofMetalness = 0.1;
+  
   return (
     <group position={position}>
-      {/* 屋顶基座 */}
-      <mesh castShadow>
+      {/* Base plate */}
+      <mesh position={[0, 0, 0]} castShadow>
         <boxGeometry args={[width, 0.1, depth]} />
-        <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
+        <meshStandardMaterial color={roofColor} roughness={roofRoughness} metalness={roofMetalness} />
       </mesh>
       
-      {/* 屋顶主体 - 使用实体几何体 */}
-      <mesh position={[0, height/2, 0]} castShadow>
-        <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[width, height * 0.3, depth]} />
-          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
-        </mesh>
-        
-        {/* 前斜面 */}
-        <mesh position={[0, height * 0.2, depth/2 - 0.1]} rotation={[Math.PI/4, 0, 0]} castShadow>
-          <boxGeometry args={[width, Math.sqrt(2) * height, 0.2]} />
-          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
-        </mesh>
-        
-        {/* 后斜面 */}
-        <mesh position={[0, height * 0.2, -depth/2 + 0.1]} rotation={[-Math.PI/4, 0, 0]} castShadow>
-          <boxGeometry args={[width, Math.sqrt(2) * height, 0.2]} />
-          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
-        </mesh>
-        
-        {/* 左斜面 */}
-        <mesh position={[-width/2 + 0.1, height * 0.2, 0]} rotation={[0, 0, Math.PI/4]} castShadow>
-          <boxGeometry args={[Math.sqrt(2) * height, depth, 0.2]} />
-          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
-        </mesh>
-        
-        {/* 右斜面 */}
-        <mesh position={[width/2 - 0.1, height * 0.2, 0]} rotation={[0, 0, -Math.PI/4]} castShadow>
-          <boxGeometry args={[Math.sqrt(2) * height, depth, 0.2]} />
-          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
-        </mesh>
+      {/* Front slope */}
+      <mesh position={[0, height/2, depth/4]} rotation={[-Math.PI/6, 0, 0]} castShadow>
+        <boxGeometry args={[width, Math.sqrt(2) * height, 0.1]} />
+        <meshStandardMaterial color={roofColor} roughness={roofRoughness} metalness={roofMetalness} />
+      </mesh>
+      
+      {/* Back slope */}
+      <mesh position={[0, height/2, -depth/4]} rotation={[Math.PI/6, 0, 0]} castShadow>
+        <boxGeometry args={[width, Math.sqrt(2) * height, 0.1]} />
+        <meshStandardMaterial color={roofColor} roughness={roofRoughness} metalness={roofMetalness} />
+      </mesh>
+      
+      {/* Left triangular side */}
+      <mesh position={[-width/2, height/2, 0]} castShadow>
+        <cylinderGeometry args={[0.001, depth/2, height, 3, 1, false, Math.PI, Math.PI]} />
+        <meshStandardMaterial color={roofColor} roughness={roofRoughness} metalness={roofMetalness} />
+      </mesh>
+      
+      {/* Right triangular side */}
+      <mesh position={[width/2, height/2, 0]} castShadow>
+        <cylinderGeometry args={[0.001, depth/2, height, 3, 1, false, 0, Math.PI]} />
+        <meshStandardMaterial color={roofColor} roughness={roofRoughness} metalness={roofMetalness} />
       </mesh>
     </group>
   );
