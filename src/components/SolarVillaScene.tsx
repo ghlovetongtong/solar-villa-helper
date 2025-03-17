@@ -1,3 +1,4 @@
+
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, PerspectiveCamera, Html, Sky, Cloud, useHelper } from "@react-three/drei";
@@ -120,14 +121,14 @@ export function SolarVillaScene() {
 
       <Canvas className="scene-canvas" shadows>
         <Suspense fallback={null}>
-          <PerspectiveCamera makeDefault position={[8, 5, 8]} fov={40} />
+          <PerspectiveCamera makeDefault position={[10, 5, 10]} fov={35} />
           <OrbitControls 
             ref={controlsRef}
             enablePan={false}
             minPolarAngle={Math.PI / 6}
             maxPolarAngle={Math.PI / 2}
             minDistance={5}
-            maxDistance={15}
+            maxDistance={20}
           />
           
           <ambientLight intensity={0.5} />
@@ -138,8 +139,7 @@ export function SolarVillaScene() {
             position={[10, 10, 5]} 
             intensity={1.5} 
             castShadow 
-            shadow-mapSize-width={1024} 
-            shadow-mapSize-height={1024}
+            shadow-mapSize={[1024, 1024]}
             shadow-camera-far={50}
             shadow-camera-left={-10}
             shadow-camera-right={10}
@@ -154,15 +154,30 @@ export function SolarVillaScene() {
           <StorageSystem onHover={setActiveTooltip} />
           <OffGridController onHover={setActiveTooltip} />
           
+          {/* Enhanced ground with more realistic grass texture */}
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
             position={[0, -1.05, 0]} 
             receiveShadow
           >
-            <planeGeometry args={[30, 30]} />
+            <planeGeometry args={[40, 40]} />
             <meshStandardMaterial 
               color="#68a85c" 
-              roughness={1}
+              roughness={0.8}
+              metalness={0.1}
+            />
+          </mesh>
+          
+          {/* Driveway */}
+          <mesh 
+            rotation={[-Math.PI / 2, 0, 0]} 
+            position={[4, -1.03, 2]} 
+            receiveShadow
+          >
+            <planeGeometry args={[6, 4]} />
+            <meshStandardMaterial 
+              color="#d4d4d4" 
+              roughness={0.9}
               metalness={0}
             />
           </mesh>
