@@ -8,7 +8,7 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
   const [hovered, setHovered] = useState(false);
   
   // Generate random efficiency percentages for the panels
-  const efficiencies = Array(100).fill(0).map(() => Math.floor(Math.random() * 20) + 75); // 75% to 95%
+  const efficiencies = Array(200).fill(0).map(() => Math.floor(Math.random() * 20) + 75); // 75% to 95%
 
   return (
     <group
@@ -22,17 +22,17 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         onHover(null);
       }}
     >
-      {/* Left roof flat solar panels - positioned higher to be on top of the roof */}
-      <group position={[-3, 3.35, 0]} rotation={[0, 0, 0]}>
-        {Array(5).fill(0).map((_, row) => 
-          Array(6).fill(0).map((_, col) => {
-            const panelIndex = row * 6 + col;
+      {/* Left roof flat solar panels - properly aligned with roof surface */}
+      <group position={[-3, 3.05, 0]} rotation={[0, 0, 0]}>
+        {Array(8).fill(0).map((_, row) => 
+          Array(8).fill(0).map((_, col) => {
+            const panelIndex = row * 8 + col;
             const efficiency = efficiencies[panelIndex];
             
             return (
-              <group key={`left-${row}-${col}`} position={[(col - 2.5) * 0.95, 0, (row - 2) * 0.95]}>
+              <group key={`left-${row}-${col}`} position={[(col - 3.5) * 0.85, 0, (row - 3.5) * 0.85]}>
                 <mesh castShadow>
-                  <boxGeometry args={[0.93, 0.06, 0.93]} />
+                  <boxGeometry args={[0.83, 0.03, 0.83]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
@@ -44,9 +44,9 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.04, 0]}
+                  position={[0, 0.02, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
-                  fontSize={0.12}
+                  fontSize={0.1}
                   color="#3CEFA3"
                   anchorX="center"
                   anchorY="middle"
@@ -60,17 +60,17 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         )}
       </group>
       
-      {/* Middle section solar panels - positioned higher to be on top of the roof */}
-      <group position={[0, 4.35, 0]} rotation={[0, 0, 0]}>
-        {Array(4).fill(0).map((_, row) => 
-          Array(3).fill(0).map((_, col) => {
-            const panelIndex = row * 3 + col + 30;
+      {/* Middle section solar panels - properly aligned with roof surface */}
+      <group position={[0, 4.05, 0]} rotation={[0, 0, 0]}>
+        {Array(6).fill(0).map((_, row) => 
+          Array(4).fill(0).map((_, col) => {
+            const panelIndex = row * 4 + col + 64;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`middle-${row}-${col}`} position={[(col - 1) * 0.95, 0, (row - 1.5) * 0.95]}>
+              <group key={`middle-${row}-${col}`} position={[(col - 1.5) * 0.85, 0, (row - 2.5) * 0.85]}>
                 <mesh castShadow>
-                  <boxGeometry args={[0.93, 0.06, 0.93]} />
+                  <boxGeometry args={[0.83, 0.03, 0.83]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
@@ -82,9 +82,9 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.04, 0]}
+                  position={[0, 0.02, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
-                  fontSize={0.12}
+                  fontSize={0.1}
                   color="#3CEFA3"
                   anchorX="center"
                   anchorY="middle"
@@ -98,17 +98,17 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         )}
       </group>
       
-      {/* Flat roof solar panels - on garage, positioned higher */}
-      <group position={[5, 2.25, 1]} rotation={[0, 0, 0]}>
-        {Array(4).fill(0).map((_, row) => 
-          Array(5).fill(0).map((_, col) => {
-            const panelIndex = row * 5 + col + 42;
+      {/* Flat roof solar panels - on garage, properly aligned */}
+      <group position={[5, 2.1, 1]} rotation={[0, 0, 0]}>
+        {Array(6).fill(0).map((_, row) => 
+          Array(7).fill(0).map((_, col) => {
+            const panelIndex = row * 7 + col + 88;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`flat-${row}-${col}`} position={[(col - 2) * 0.93, 0, (row - 1.5) * 0.93]}>
+              <group key={`flat-${row}-${col}`} position={[(col - 3) * 0.85, 0, (row - 2.5) * 0.85]}>
                 <mesh castShadow>
-                  <boxGeometry args={[0.9, 0.05, 0.9]} />
+                  <boxGeometry args={[0.83, 0.03, 0.83]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
@@ -120,9 +120,9 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.03, 0]}
+                  position={[0, 0.02, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
-                  fontSize={0.12}
+                  fontSize={0.1}
                   color="#3CEFA3"
                   anchorX="center"
                   anchorY="middle"
@@ -137,16 +137,16 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
       </group>
       
       {/* Front roof solar panels - adjusted to follow the roof slope and fully cover it */}
-      <group position={[-3, 4.3, 3.7]} rotation={[-Math.PI/6, 0, 0]}>
-        {Array(5).fill(0).map((_, row) => 
-          Array(6).fill(0).map((_, col) => {
-            const panelIndex = row * 6 + col + 62;
+      <group position={[-3, 4.31, 3.7]} rotation={[-Math.PI/6, 0, 0]}>
+        {Array(8).fill(0).map((_, row) => 
+          Array(8).fill(0).map((_, col) => {
+            const panelIndex = row * 8 + col + 130;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`front-${row}-${col}`} position={[(col - 2.5) * 0.93, 0, (row - 2) * 0.93]}>
+              <group key={`front-${row}-${col}`} position={[(col - 3.5) * 0.85, 0, (row - 3.5) * 0.85]}>
                 <mesh castShadow>
-                  <boxGeometry args={[0.9, 0.06, 0.9]} />
+                  <boxGeometry args={[0.83, 0.03, 0.83]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
@@ -158,9 +158,9 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.04, 0]}
+                  position={[0, 0.02, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
-                  fontSize={0.12}
+                  fontSize={0.1}
                   color="#3CEFA3"
                   anchorX="center"
                   anchorY="middle"
@@ -175,16 +175,16 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
       </group>
       
       {/* Back roof solar panels - adjusted to follow the roof slope and fully cover it */}
-      <group position={[-3, 4.3, -3.7]} rotation={[Math.PI/6, 0, 0]}>
-        {Array(5).fill(0).map((_, row) => 
-          Array(6).fill(0).map((_, col) => {
-            const panelIndex = row * 6 + col + 30;
+      <group position={[-3, 4.31, -3.7]} rotation={[Math.PI/6, 0, 0]}>
+        {Array(8).fill(0).map((_, row) => 
+          Array(8).fill(0).map((_, col) => {
+            const panelIndex = row * 8 + col + 30;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`back-${row}-${col}`} position={[(col - 2.5) * 0.93, 0, (row - 2) * 0.93]}>
+              <group key={`back-${row}-${col}`} position={[(col - 3.5) * 0.85, 0, (row - 3.5) * 0.85]}>
                 <mesh castShadow>
-                  <boxGeometry args={[0.9, 0.06, 0.9]} />
+                  <boxGeometry args={[0.83, 0.03, 0.83]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
@@ -196,9 +196,9 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.04, 0]}
+                  position={[0, 0.02, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
-                  fontSize={0.12}
+                  fontSize={0.1}
                   color="#3CEFA3"
                   anchorX="center"
                   anchorY="middle"
@@ -213,16 +213,16 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
       </group>
       
       {/* Middle front roof solar panels - adjusted to fully cover the front slope */}
-      <group position={[0, 5.3, 2.7]} rotation={[-Math.PI/6, 0, 0]}>
-        {Array(4).fill(0).map((_, row) => 
-          Array(3).fill(0).map((_, col) => {
-            const panelIndex = row * 3 + col + 15;
+      <group position={[0, 5.31, 2.7]} rotation={[-Math.PI/6, 0, 0]}>
+        {Array(6).fill(0).map((_, row) => 
+          Array(4).fill(0).map((_, col) => {
+            const panelIndex = row * 4 + col + 15;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`middle-front-${row}-${col}`} position={[(col - 1) * 0.93, 0, (row - 1.5) * 0.93]}>
+              <group key={`middle-front-${row}-${col}`} position={[(col - 1.5) * 0.85, 0, (row - 2.5) * 0.85]}>
                 <mesh castShadow>
-                  <boxGeometry args={[0.9, 0.06, 0.9]} />
+                  <boxGeometry args={[0.83, 0.03, 0.83]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
@@ -234,9 +234,9 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.04, 0]}
+                  position={[0, 0.02, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
-                  fontSize={0.12}
+                  fontSize={0.1}
                   color="#3CEFA3"
                   anchorX="center"
                   anchorY="middle"
@@ -251,16 +251,16 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
       </group>
       
       {/* Middle back roof solar panels - adjusted to fully cover the back slope */}
-      <group position={[0, 5.3, -2.7]} rotation={[Math.PI/6, 0, 0]}>
-        {Array(4).fill(0).map((_, row) => 
-          Array(3).fill(0).map((_, col) => {
-            const panelIndex = row * 3 + col + 19;
+      <group position={[0, 5.31, -2.7]} rotation={[Math.PI/6, 0, 0]}>
+        {Array(6).fill(0).map((_, row) => 
+          Array(4).fill(0).map((_, col) => {
+            const panelIndex = row * 4 + col + 19;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`middle-back-${row}-${col}`} position={[(col - 1) * 0.93, 0, (row - 1.5) * 0.93]}>
+              <group key={`middle-back-${row}-${col}`} position={[(col - 1.5) * 0.85, 0, (row - 2.5) * 0.85]}>
                 <mesh castShadow>
-                  <boxGeometry args={[0.9, 0.06, 0.9]} />
+                  <boxGeometry args={[0.83, 0.03, 0.83]} />
                   <meshStandardMaterial 
                     color="#112233" 
                     metalness={0.8}
@@ -272,9 +272,9 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
                 
                 {/* Efficiency text overlay */}
                 <Text 
-                  position={[0, 0.04, 0]}
+                  position={[0, 0.02, 0]}
                   rotation={[-Math.PI/2, 0, 0]}
-                  fontSize={0.12}
+                  fontSize={0.1}
                   color="#3CEFA3"
                   anchorX="center"
                   anchorY="middle"
