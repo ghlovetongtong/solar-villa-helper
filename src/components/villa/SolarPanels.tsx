@@ -23,7 +23,7 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
       }}
     >
       {/* Left roof solar panels - flat on the roof */}
-      <group position={[-3, 3.25, 0]} rotation={[0, 0, 0]}>
+      <group position={[-3, 3.3, 0]} rotation={[0, 0, 0]}>
         {Array(4).fill(0).map((_, row) => 
           Array(5).fill(0).map((_, col) => {
             const panelIndex = row * 5 + col;
@@ -61,7 +61,7 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
       </group>
       
       {/* Middle section solar panels - flat on the roof */}
-      <group position={[0, 4.25, 0]} rotation={[0, 0, 0]}>
+      <group position={[0, 4.3, 0]} rotation={[0, 0, 0]}>
         {Array(3).fill(0).map((_, row) => 
           Array(2).fill(0).map((_, col) => {
             const panelIndex = row * 2 + col + 20;
@@ -99,7 +99,7 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
       </group>
       
       {/* Flat roof solar panels - on garage */}
-      <group position={[5, 2.15, 1]} rotation={[0, 0, 0]}>
+      <group position={[5, 2.2, 1]} rotation={[0, 0, 0]}>
         {Array(3).fill(0).map((_, row) => 
           Array(4).fill(0).map((_, col) => {
             const panelIndex = row * 4 + col + 10;
@@ -136,15 +136,15 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         )}
       </group>
       
-      {/* Front roof slope solar panels */}
-      <group position={[-3, 4.25, 3.7]} rotation={[-Math.PI/6, 0, 0]}>
-        {Array(3).fill(0).map((_, row) => 
+      {/* Front roof slope solar panels - adjusted to follow the roof slope */}
+      <group position={[-3, 4.3, 3.7]} rotation={[-Math.PI/6, 0, 0]}>
+        {Array(4).fill(0).map((_, row) => 
           Array(5).fill(0).map((_, col) => {
             const panelIndex = row * 5 + col + 1;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`front-${row}-${col}`} position={[(col - 2) * 0.95, 0, (row - 1) * 0.95]}>
+              <group key={`front-${row}-${col}`} position={[(col - 2) * 0.95, 0, (row - 1.5) * 0.95]}>
                 <mesh castShadow>
                   <boxGeometry args={[0.9, 0.06, 0.9]} />
                   <meshStandardMaterial 
@@ -174,15 +174,15 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         )}
       </group>
       
-      {/* Back roof slope solar panels */}
-      <group position={[-3, 4.25, -3.7]} rotation={[Math.PI/6, 0, 0]}>
-        {Array(3).fill(0).map((_, row) => 
+      {/* Back roof slope solar panels - adjusted to follow the roof slope */}
+      <group position={[-3, 4.3, -3.7]} rotation={[Math.PI/6, 0, 0]}>
+        {Array(4).fill(0).map((_, row) => 
           Array(5).fill(0).map((_, col) => {
             const panelIndex = row * 5 + col + 5;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`back-${row}-${col}`} position={[(col - 2) * 0.95, 0, (row - 1) * 0.95]}>
+              <group key={`back-${row}-${col}`} position={[(col - 2) * 0.95, 0, (row - 1.5) * 0.95]}>
                 <mesh castShadow>
                   <boxGeometry args={[0.9, 0.06, 0.9]} />
                   <meshStandardMaterial 
@@ -212,15 +212,15 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         )}
       </group>
       
-      {/* Middle front roof slope solar panels */}
-      <group position={[0, 5.25, 2.7]} rotation={[-Math.PI/6, 0, 0]}>
-        {Array(2).fill(0).map((_, row) => 
+      {/* Middle front roof slope solar panels - adjusted to follow the roof slope */}
+      <group position={[0, 5.3, 2.7]} rotation={[-Math.PI/6, 0, 0]}>
+        {Array(3).fill(0).map((_, row) => 
           Array(2).fill(0).map((_, col) => {
             const panelIndex = row * 2 + col + 15;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`middle-front-${row}-${col}`} position={[(col - 0.5) * 0.95, 0, (row - 0.5) * 0.95]}>
+              <group key={`middle-front-${row}-${col}`} position={[(col - 0.5) * 0.95, 0, (row - 1) * 0.95]}>
                 <mesh castShadow>
                   <boxGeometry args={[0.9, 0.06, 0.9]} />
                   <meshStandardMaterial 
@@ -250,15 +250,15 @@ export default function SolarPanels({ onHover }: { onHover: (info: string | null
         )}
       </group>
       
-      {/* Middle back roof slope solar panels */}
-      <group position={[0, 5.25, -2.7]} rotation={[Math.PI/6, 0, 0]}>
-        {Array(2).fill(0).map((_, row) => 
+      {/* Middle back roof slope solar panels - adjusted to follow the roof slope */}
+      <group position={[0, 5.3, -2.7]} rotation={[Math.PI/6, 0, 0]}>
+        {Array(3).fill(0).map((_, row) => 
           Array(2).fill(0).map((_, col) => {
             const panelIndex = row * 2 + col + 19;
             const efficiency = efficiencies[panelIndex % efficiencies.length];
             
             return (
-              <group key={`middle-back-${row}-${col}`} position={[(col - 0.5) * 0.95, 0, (row - 0.5) * 0.95]}>
+              <group key={`middle-back-${row}-${col}`} position={[(col - 0.5) * 0.95, 0, (row - 1) * 0.95]}>
                 <mesh castShadow>
                   <boxGeometry args={[0.9, 0.06, 0.9]} />
                   <meshStandardMaterial 
