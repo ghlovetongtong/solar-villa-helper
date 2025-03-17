@@ -139,7 +139,8 @@ export function SolarVillaScene() {
             position={[10, 10, 5]} 
             intensity={1.5} 
             castShadow 
-            shadow-mapSize={[1024, 1024]}
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
             shadow-camera-far={50}
             shadow-camera-left={-10}
             shadow-camera-right={10}

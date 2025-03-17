@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group } from "three";
@@ -129,14 +128,14 @@ function PitchedRoof({ position, width, height, depth }: {
       </mesh>
       
       {/* Pitched roof - front triangle */}
-      <mesh position={[0, height/2, depth/2]} castShadow>
-        <cylinderGeometry args={[0.001, width/2, height, 3, 1, false, Math.PI, Math.PI]} rotation={[0, Math.PI/2, Math.PI/2]} />
+      <mesh position={[0, height/2, depth/2]} rotation={[0, 0, 0]} castShadow>
+        <cylinderGeometry args={[0.001, width/2, height, 3, 1, false, Math.PI, Math.PI]} />
         <meshStandardMaterial color="#333333" roughness={0.6} metalness={0.4} />
       </mesh>
       
       {/* Pitched roof - back triangle */}
-      <mesh position={[0, height/2, -depth/2]} castShadow>
-        <cylinderGeometry args={[0.001, width/2, height, 3, 1, false, 0, Math.PI]} rotation={[0, Math.PI/2, Math.PI/2]} />
+      <mesh position={[0, height/2, -depth/2]} rotation={[0, Math.PI, 0]} castShadow>
+        <cylinderGeometry args={[0.001, width/2, height, 3, 1, false, Math.PI, Math.PI]} />
         <meshStandardMaterial color="#333333" roughness={0.6} metalness={0.4} />
       </mesh>
       
