@@ -1,14 +1,12 @@
-
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, PerspectiveCamera, Html } from "@react-three/drei";
+import { OrbitControls, Environment, PerspectiveCamera, Html, Sky, Cloud, useHelper } from "@react-three/drei";
 import Villa from "./villa/Villa";
 import SolarPanels from "./villa/SolarPanels";
 import { Inverter, Meter, StorageSystem, OffGridController } from "./villa/Equipment";
 import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
-
-// Install framer-motion
+import { DirectionalLightHelper, HemisphereLightHelper } from "three";
 import { cn } from "@/lib/utils";
 
 export function SolarVillaScene() {
@@ -16,8 +14,8 @@ export function SolarVillaScene() {
   const [isLoading, setIsLoading] = useState(true);
   const [showIntro, setShowIntro] = useState(true);
   const controlsRef = useRef<any>(null);
+  const directionalLightRef = useRef<THREE.DirectionalLight>(null);
 
-  // Simulate loading time (in a real app, this would be actual model loading)
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -26,7 +24,6 @@ export function SolarVillaScene() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Hide intro after 5 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIntro(false);
@@ -37,7 +34,6 @@ export function SolarVillaScene() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-gradient-to-b from-blue-50 to-white">
-      {/* Top header */}
       <div className="absolute top-0 left-0 right-0 z-10 p-4 sm:p-6">
         <div className="mx-auto max-w-7xl">
           <motion.div 
@@ -64,7 +60,6 @@ export function SolarVillaScene() {
         </div>
       </div>
       
-      {/* Active tooltip */}
       {activeTooltip && (
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
@@ -76,7 +71,6 @@ export function SolarVillaScene() {
         </motion.div>
       )}
 
-      {/* Loading screen */}
       {isLoading && (
         <div className="loading-screen">
           <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-500 animate-spin mb-4"></div>
@@ -85,7 +79,6 @@ export function SolarVillaScene() {
         </div>
       )}
       
-      {/* Intro overlay */}
       {showIntro && !isLoading && (
         <motion.div 
           initial={{ opacity: 0 }}
@@ -116,7 +109,6 @@ export function SolarVillaScene() {
         </motion.div>
       )}
 
-      {/* Instructions */}
       <div className={cn(
         "scroll-indicator",
         showIntro || isLoading ? "opacity-0" : "opacity-80"
@@ -126,8 +118,7 @@ export function SolarVillaScene() {
         </span>
       </div>
 
-      {/* 3D Canvas */}
-      <Canvas className="scene-canvas">
+      <Canvas className="scene-canvas" shadows>
         <Suspense fallback={null}>
           <PerspectiveCamera makeDefault position={[8, 5, 8]} fov={40} />
           <OrbitControls 
@@ -139,10 +130,23 @@ export function SolarVillaScene() {
             maxDistance={15}
           />
           
-          <ambientLight intensity={1} />
-          <directionalLight position={[10, 10, 5]} intensity={1.5} castShadow />
+          <ambientLight intensity={0.5} />
+          <hemisphereLight intensity={0.5} color="#b1e1ff" groundColor="#509e4f" />
           
-          {/* Villa and all components */}
+          <directionalLight 
+            ref={directionalLightRef}
+            position={[10, 10, 5]} 
+            intensity={1.5} 
+            castShadow 
+            shadow-mapSize-width={1024} 
+            shadow-mapSize-height={1024}
+            shadow-camera-far={50}
+            shadow-camera-left={-10}
+            shadow-camera-right={10}
+            shadow-camera-top={10}
+            shadow-camera-bottom={-10}
+          />
+          
           <Villa onHover={setActiveTooltip} />
           <SolarPanels onHover={setActiveTooltip} />
           <Inverter onHover={setActiveTooltip} />
@@ -150,11 +154,23 @@ export function SolarVillaScene() {
           <StorageSystem onHover={setActiveTooltip} />
           <OffGridController onHover={setActiveTooltip} />
           
-          {/* Ground plane */}
-          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.05, 0]} receiveShadow>
+          <mesh 
+            rotation={[-Math.PI / 2, 0, 0]} 
+            position={[0, -1.05, 0]} 
+            receiveShadow
+          >
             <planeGeometry args={[30, 30]} />
-            <meshStandardMaterial color="#8da9a6" />
+            <meshStandardMaterial 
+              color="#68a85c" 
+              roughness={1}
+              metalness={0}
+            />
           </mesh>
+          
+          <Sky distance={450000} sunPosition={[10, 8, 5]} inclination={0.5} azimuth={0.25} />
+          
+          <Cloud position={[-10, 15, -10]} args={[3, 2]} opacity={0.8} speed={0.4} />
+          <Cloud position={[10, 10, -10]} args={[4, 2]} opacity={0.7} speed={0.2} />
           
           <Environment preset="sunset" />
         </Suspense>
