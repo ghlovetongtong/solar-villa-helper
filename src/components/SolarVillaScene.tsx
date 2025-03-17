@@ -1,4 +1,3 @@
-
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, PerspectiveCamera, Html, Sky, Cloud, useHelper } from "@react-three/drei";
@@ -155,7 +154,6 @@ export function SolarVillaScene() {
           <StorageSystem onHover={setActiveTooltip} />
           <OffGridController onHover={setActiveTooltip} />
           
-          {/* Enhanced ground with more realistic grass texture */}
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
             position={[0, -1.05, 0]} 
@@ -169,7 +167,6 @@ export function SolarVillaScene() {
             />
           </mesh>
           
-          {/* More realistic driveway */}
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
             position={[4, -1.03, 2]} 
@@ -183,7 +180,6 @@ export function SolarVillaScene() {
             />
           </mesh>
           
-          {/* Add landscape elements */}
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
             position={[-5, -1.02, -6]} 

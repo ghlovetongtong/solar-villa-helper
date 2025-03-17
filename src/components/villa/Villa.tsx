@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Group } from "three";
@@ -52,9 +51,9 @@ export default function Villa({ onHover }: { onHover: (info: string | null) => v
         <meshStandardMaterial color="#f1f0fb" roughness={0.4} metalness={0.05} />
       </mesh>
       
-      {/* Roofs - triangular for main buildings with improved material */}
-      <PitchedRoof position={[-3, 3.05, 0]} width={8.4} height={1.6} depth={8.4} />
-      <PitchedRoof position={[0, 4.05, 0]} width={3.4} height={1.2} depth={6.4} />
+      {/* 优化的屋顶 - 使用实体模型代替之前的镂空结构 */}
+      <ImprovedRoof position={[-3, 3.05, 0]} width={8.4} height={1.6} depth={8.4} />
+      <ImprovedRoof position={[0, 4.05, 0]} width={3.4} height={1.2} depth={6.4} />
       
       {/* Flat roof for garage with balcony/terrace */}
       <mesh position={[5, 2.05, 1]} castShadow>
@@ -118,7 +117,7 @@ export default function Villa({ onHover }: { onHover: (info: string | null) => v
   );
 }
 
-function PitchedRoof({ position, width, height, depth }: { 
+function ImprovedRoof({ position, width, height, depth }: { 
   position: [number, number, number], 
   width: number, 
   height: number, 
@@ -126,34 +125,42 @@ function PitchedRoof({ position, width, height, depth }: {
 }) {
   return (
     <group position={position}>
-      {/* Roof base with darker color */}
+      {/* 屋顶基座 */}
       <mesh castShadow>
         <boxGeometry args={[width, 0.1, depth]} />
         <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
       </mesh>
       
-      {/* Pitched roof - front triangle */}
-      <mesh position={[0, height/2, depth/2]} rotation={[0, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.001, width/2, height, 3, 1, false, Math.PI, Math.PI]} />
-        <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
-      </mesh>
-      
-      {/* Pitched roof - back triangle */}
-      <mesh position={[0, height/2, -depth/2]} rotation={[0, Math.PI, 0]} castShadow>
-        <cylinderGeometry args={[0.001, width/2, height, 3, 1, false, Math.PI, Math.PI]} />
-        <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
-      </mesh>
-      
-      {/* Pitched roof - left face */}
-      <mesh position={[-width/4, height/2, 0]} rotation={[Math.PI/4 - 0.1, 0, 0]} castShadow>
-        <boxGeometry args={[width/2, Math.sqrt(height*height + (depth/2)*(depth/2)), 0.1]} />
-        <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
-      </mesh>
-      
-      {/* Pitched roof - right face */}
-      <mesh position={[width/4, height/2, 0]} rotation={[-(Math.PI/4 - 0.1), 0, 0]} castShadow>
-        <boxGeometry args={[width/2, Math.sqrt(height*height + (depth/2)*(depth/2)), 0.1]} />
-        <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
+      {/* 屋顶主体 - 使用实体几何体 */}
+      <mesh position={[0, height/2, 0]} castShadow>
+        <mesh position={[0, 0, 0]} castShadow>
+          <boxGeometry args={[width, height * 0.3, depth]} />
+          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
+        </mesh>
+        
+        {/* 前斜面 */}
+        <mesh position={[0, height * 0.2, depth/2 - 0.1]} rotation={[Math.PI/4, 0, 0]} castShadow>
+          <boxGeometry args={[width, Math.sqrt(2) * height, 0.2]} />
+          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
+        </mesh>
+        
+        {/* 后斜面 */}
+        <mesh position={[0, height * 0.2, -depth/2 + 0.1]} rotation={[-Math.PI/4, 0, 0]} castShadow>
+          <boxGeometry args={[width, Math.sqrt(2) * height, 0.2]} />
+          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
+        </mesh>
+        
+        {/* 左斜面 */}
+        <mesh position={[-width/2 + 0.1, height * 0.2, 0]} rotation={[0, 0, Math.PI/4]} castShadow>
+          <boxGeometry args={[Math.sqrt(2) * height, depth, 0.2]} />
+          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
+        </mesh>
+        
+        {/* 右斜面 */}
+        <mesh position={[width/2 - 0.1, height * 0.2, 0]} rotation={[0, 0, -Math.PI/4]} castShadow>
+          <boxGeometry args={[Math.sqrt(2) * height, depth, 0.2]} />
+          <meshStandardMaterial color="#403E43" roughness={0.6} metalness={0.2} />
+        </mesh>
       </mesh>
     </group>
   );
