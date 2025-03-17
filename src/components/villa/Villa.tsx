@@ -1,20 +1,7 @@
 
-import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
 import { Group, Mesh } from "three";
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-
-type GLTFResult = GLTF & {
-  nodes: {
-    Villa: Mesh;
-    Roof: Mesh;
-  };
-  materials: {
-    VillaMaterial: THREE.Material;
-    RoofMaterial: THREE.Material;
-  };
-};
 
 export default function Villa({ onHover }: { onHover: (info: string | null) => void }) {
   const group = useRef<Group>(null);
