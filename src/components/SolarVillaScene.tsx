@@ -66,7 +66,7 @@ export function SolarVillaScene() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 info-tooltip"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 bg-white/80 backdrop-blur-md px-4 py-2 rounded-lg shadow-lg"
         >
           <p className="text-sm font-medium text-gray-900">{activeTooltip}</p>
         </motion.div>
@@ -111,7 +111,7 @@ export function SolarVillaScene() {
       )}
 
       <div className={cn(
-        "scroll-indicator",
+        "scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 transition-opacity duration-300",
         showIntro || isLoading ? "opacity-0" : "opacity-80"
       )}>
         <span className="bg-black/40 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm">
@@ -163,13 +163,13 @@ export function SolarVillaScene() {
           >
             <planeGeometry args={[40, 40]} />
             <meshStandardMaterial 
-              color="#68a85c" 
-              roughness={0.8}
+              color="#5a8d55" 
+              roughness={0.9}
               metalness={0.1}
             />
           </mesh>
           
-          {/* Driveway */}
+          {/* More realistic driveway */}
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
             position={[4, -1.03, 2]} 
@@ -177,9 +177,23 @@ export function SolarVillaScene() {
           >
             <planeGeometry args={[6, 4]} />
             <meshStandardMaterial 
-              color="#d4d4d4" 
+              color="#c8c8c9" 
               roughness={0.9}
-              metalness={0}
+              metalness={0.1}
+            />
+          </mesh>
+          
+          {/* Add landscape elements */}
+          <mesh 
+            rotation={[-Math.PI / 2, 0, 0]} 
+            position={[-5, -1.02, -6]} 
+            receiveShadow
+          >
+            <planeGeometry args={[4, 3]} />
+            <meshStandardMaterial 
+              color="#7ba36f" 
+              roughness={0.8}
+              metalness={0.1}
             />
           </mesh>
           
@@ -187,6 +201,7 @@ export function SolarVillaScene() {
           
           <Cloud position={[-10, 15, -10]} args={[3, 2]} opacity={0.8} speed={0.4} />
           <Cloud position={[10, 10, -10]} args={[4, 2]} opacity={0.7} speed={0.2} />
+          <Cloud position={[5, 12, 10]} args={[3.5, 1.8]} opacity={0.75} speed={0.3} />
           
           <Environment preset="sunset" />
         </Suspense>
