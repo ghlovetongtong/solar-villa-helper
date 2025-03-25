@@ -1,7 +1,7 @@
 
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, PerspectiveCamera, Html, Sky, Cloud, useHelper } from "@react-three/drei";
+import { OrbitControls, Environment, PerspectiveCamera, Html, Sky, useHelper } from "@react-three/drei";
 import Villa from "./villa/Villa";
 import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
@@ -187,9 +187,8 @@ export function SolarVillaScene() {
           
           <Sky distance={450000} sunPosition={[10, 8, 5]} inclination={0.5} azimuth={0.25} />
           
-          <Cloud position={[-10, 15, -10]} opacity={0.8} speed={0.4} />
-          <Cloud position={[10, 10, -10]} opacity={0.7} speed={0.2} />
-          <Cloud position={[5, 12, 10]} opacity={0.75} speed={0.3} />
+          {/* Replaced Cloud components with fog effect */}
+          <fog attach="fog" args={['#d9efff', 20, 40]} />
           
           <Environment preset="sunset" />
         </Suspense>
