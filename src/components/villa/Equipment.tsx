@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Group } from "three";
 import { Text } from "@react-three/drei";
+import { useToast } from "@/hooks/use-toast";
 
 interface EquipmentProps {
   onHover: (info: string | null) => void;
@@ -9,6 +10,15 @@ interface EquipmentProps {
 
 export function Inverter({ onHover }: EquipmentProps) {
   const [hovered, setHovered] = useState(false);
+  const { toast } = useToast();
+  
+  const handleClick = () => {
+    toast({
+      title: "逆变器状态",
+      description: "当前输出功率: 3.8kW, 工作正常",
+      variant: "default",
+    });
+  };
   
   return (
     <group 
@@ -23,6 +33,8 @@ export function Inverter({ onHover }: EquipmentProps) {
         setHovered(false);
         onHover(null);
       }}
+      onClick={handleClick}
+      cursor="pointer"
     >
       <mesh>
         <boxGeometry args={[0.6, 0.8, 0.3]} />
