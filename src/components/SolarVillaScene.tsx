@@ -129,6 +129,7 @@ export function SolarVillaScene() {
             maxDistance={20}
           />
           
+          {/* Enhanced lighting for better visuals */}
           <ambientLight intensity={0.5} />
           <hemisphereLight intensity={0.5} color="#b1e1ff" groundColor="#509e4f" />
           
@@ -146,6 +147,7 @@ export function SolarVillaScene() {
           
           <Villa onHover={setActiveTooltip} />
           
+          {/* Ground plane */}
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
             position={[0, -1.05, 0]} 
@@ -159,6 +161,7 @@ export function SolarVillaScene() {
             />
           </mesh>
           
+          {/* Driveway */}
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
             position={[4, -1.03, 2]} 
@@ -172,6 +175,7 @@ export function SolarVillaScene() {
             />
           </mesh>
           
+          {/* Garden area */}
           <mesh 
             rotation={[-Math.PI / 2, 0, 0]} 
             position={[-5, -1.02, -6]} 
@@ -187,10 +191,11 @@ export function SolarVillaScene() {
           
           <Sky distance={450000} sunPosition={[10, 8, 5]} inclination={0.5} azimuth={0.25} />
           
-          {/* Replaced Cloud components with fog effect */}
+          {/* Scene fog for atmospheric effect */}
           <fog attach="fog" args={['#d9efff', 20, 40]} />
           
-          <Environment preset="sunset" />
+          {/* Using a preset that doesn't require external HDR files */}
+          <Environment preset="park" />
         </Suspense>
       </Canvas>
     </div>
