@@ -1,7 +1,6 @@
-
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, PerspectiveCamera, Html, Sky, useHelper } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, Html, Sky, useHelper } from "@react-three/drei";
 import Villa from "./villa/Villa";
 import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
@@ -193,9 +192,6 @@ export function SolarVillaScene() {
           
           {/* Scene fog for atmospheric effect */}
           <fog attach="fog" args={['#d9efff', 20, 40]} />
-          
-          {/* Using a preset that doesn't require external HDR files */}
-          <Environment preset="park" />
         </Suspense>
       </Canvas>
     </div>
