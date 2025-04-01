@@ -1,8 +1,8 @@
-
 import { useState } from "react";
 import { Group } from "three";
 import { Text } from "@react-three/drei";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface EquipmentProps {
   onHover: (info: string | null) => void;
@@ -11,6 +11,7 @@ interface EquipmentProps {
 export function Inverter({ onHover }: EquipmentProps) {
   const [hovered, setHovered] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const handleClick = () => {
     toast({
@@ -18,6 +19,8 @@ export function Inverter({ onHover }: EquipmentProps) {
       description: "当前输出功率: 3.8kW, 工作正常",
       variant: "default",
     });
+    
+    window.dispatchEvent(new CustomEvent('openInverterDialog'));
   };
   
   return (
@@ -34,7 +37,6 @@ export function Inverter({ onHover }: EquipmentProps) {
         onHover(null);
       }}
       onClick={handleClick}
-      cursor="pointer"
     >
       <mesh>
         <boxGeometry args={[0.6, 0.8, 0.3]} />

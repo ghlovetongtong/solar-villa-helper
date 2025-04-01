@@ -6,6 +6,7 @@ import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
 import { DirectionalLightHelper, HemisphereLightHelper } from "three";
 import { cn } from "@/lib/utils";
+import { InverterDialog } from "./villa/InverterDialog";
 
 export function SolarVillaScene() {
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
@@ -32,6 +33,8 @@ export function SolarVillaScene() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-gradient-to-b from-blue-50 to-white">
+      <InverterDialog />
+      
       <div className="absolute top-0 left-0 right-0 z-10 p-4 sm:p-6">
         <div className="mx-auto max-w-7xl">
           <motion.div 
