@@ -17,8 +17,8 @@ const LoadingPlaceholder = () => {
     <div className="h-screen w-full flex items-center justify-center bg-gradient-to-b from-blue-50 to-white">
       <div className="flex flex-col items-center">
         <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-500 animate-spin mb-4"></div>
-        <h3 className="text-xl font-medium text-gray-900 mb-2">Loading Solar Villa</h3>
-        <p className="text-gray-500">Preparing 3D visualization...</p>
+        <h3 className="text-xl font-medium text-gray-900 mb-2">加载中...</h3>
+        <p className="text-gray-500">正在准备3D可视化...</p>
       </div>
     </div>
   );
