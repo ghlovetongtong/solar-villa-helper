@@ -1,10 +1,10 @@
+
 import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, Html, Sky, useHelper } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, Sky } from "@react-three/drei";
 import Villa from "./villa/Villa";
 import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
-import { DirectionalLightHelper, HemisphereLightHelper } from "three";
 import { cn } from "@/lib/utils";
 import { InverterDialog } from "./villa/InverterDialog";
 
